@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MangaRead - Free Comic Reader</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: #f0f0f0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background-color: #0d0d0d;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ff6b6b;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 10px;
+    }
+
+    nav ul li a {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ff6b6b;
+    }
+
+    .search-bar {
+      display: flex;
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    .search-bar input {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      background: #2d2d2d;
+      color: #f0f0f0;
+      width: 200px;
+    }
+
+    .search-bar button {
+      padding: 8px 12px;
+      border: none;
+      background: #ff6b6b;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 500px;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+        url('https://via.placeholder.com/1200x500/2d2d2d/ffffff?text=Manga+World');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #ff6b6b;
+      color: white;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff5252;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 2rem;
+      margin: 0 auto 30px auto;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ff6b6b;
+      display: table;
+    }
+
+    /* Comics Grid */
+    .comics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 25px;
+      justify-items: center;
+      margin-bottom: 50px;
+    }
+
+    .comic-card {
+      background: #2d2d2d;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      width: 200px;
+    }
+
+    .comic-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .comic-cover {
+      height: 280px;
+      overflow: hidden;
+    }
+
+    .comic-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .comic-card:hover .comic-cover img {
+      transform: scale(1.05);
+    }
+
+    .comic-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .comic-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    .comic-chapters {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* Footer */
+    footer {
+      background: #0d0d0d;
+      padding: 40px 20px;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .footer-section {
+      min-width: 200px;
+    }
+
+    .footer-section h3 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: #ff6b6b;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+      color: #aaa;
+      transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+      color: #ff6b6b;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #2d2d2d;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .comics-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <a href="#" class="logo">MangaRead</a>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Browse</a></li>
+          <li><a href="#">Latest</a></li>
+          <li><a href="#">Popular</a></li>
+        </ul>
+      </nav>
+      <div class="search-bar">
+        <input type="text" placeholder="Search comics...">
+        <button>Search</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div>
+        <h1>Read Thousands of Comics for Free</h1>
+        <p>Discover the best manga, manhwa, webtoons and more on our platform with regular updates.</p>
+        <a href="#" class="btn">Start Reading Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Comics -->
+  <section class="container">
+    <h2 class="section-title">Featured Comics</h2>
+    <div class="comics-grid">
+      <!-- Comic cards generated by JavaScript -->
+    </div>
+  </section>
+
+  <!-- Latest Updates -->
+  <section class="container">
+    <h2 class="section-title">Latest Updates</h2>
+    <div class="comics-grid">
+      <!-- Comic cards generated by JavaScript -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-section">
+        <h3>MangaRead</h3>
+        <p>Your ultimate destination for free manga and comic reading online.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Browse</a></li>
+          <li><a href="#">Latest</a></li>
+          <li><a href="#">Popular</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Genres</h3>
+        <ul>
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Comedy</a></li>
+          <li><a href="#">Drama</a></li>
+          <li><a href="#">Fantasy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 MangaRead. This is a demo site for educational purposes.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Comic data
+    const comics = [
+      { id: 1, title: "Omniscient Reader's Viewpoint", chapters: 120, cover: "OIP.webp" },
+      { id: 2, title: "Dragon Rising", chapters: 37, cover: "https://via.placeholder.com/200x280/3399ff/ffffff?text=Dragon+Rising" },
+      { id: 3, title: "Silent Whisper", chapters: 18, cover: "https://via.placeholder.com/200x280/33cc33/ffffff?text=Silent+Whisper" },
+      { id: 4, title: "Cyber Nexus", chapters: 42, cover: "https://via.placeholder.com/200x280/ffcc00/000000?text=Cyber+Nexus" },
+      { id: 5, title: "Moonlight Shadow", chapters: 29, cover: "https://via.placeholder.com/200x280/9966cc/ffffff?text=Moonlight+Shadow" }
+    ];
+
+    // Generate comic cards
+    function generateComicCards() {
+      const grids = document.querySelectorAll('.comics-grid');
+      grids.forEach(grid => {
+        grid.innerHTML = '';
+        comics.forEach(comic => {
+          const card = document.createElement('div');
+          card.className = 'comic-card';
+          card.innerHTML = `
+            <div class="comic-cover">
+              <img src="${comic.cover}" alt="${comic.title}">
+            </div>
+            <div class="comic-info">
+              <div class="comic-title">${comic.title}</div>
+              <div class="comic-chapters">${comic.chapters} chapters</div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', generateComicCards);
+  </script>
+</body>
+</html>
